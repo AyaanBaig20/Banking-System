@@ -10,4 +10,7 @@ router.post("/create",authmiddleware.islogin,accountController.createAccount)
 // check balance
 router.get("/balance/:accountid",authmiddleware.islogin,accountController.CheckBalance)
 
+// check accounts 
+router.get("/check",authmiddleware.islogin,accountController.CheckAccount)
+
 export default router

@@ -1,5 +1,4 @@
 import accountModel from "../models/account.model.js";
-import userModel from "../models/user.models.js";
 
 // Create Account
 async function createAccount(req, res) {
@@ -10,7 +9,6 @@ async function createAccount(req, res) {
   res.json({ message: "account created" });
 }
 
-// check balance
 // check balance
 async function CheckBalance(req, res) {
   try {
@@ -32,4 +30,14 @@ async function CheckBalance(req, res) {
   }
 }
 
-export default { createAccount, CheckBalance };
+// Check Accounts
+async function CheckAccount(req,res) {
+  let userid = req.user._id;
+  let multiplesAccounts = await accountModel.find({userinfo:userid})
+  if(!multiplesAccounts || multiplesAccounts.length==0){
+    return res.json({message:"You dont have any Account"})
+  }
+  return res.json(multiplesAccounts)
+}
+
+export default { createAccount, CheckBalance,CheckAccount };
