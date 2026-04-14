@@ -7,7 +7,7 @@ async function userRegister(req, res) {
   let { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    return res.json({ message: "field cannot be empty" });
+    return res.json({ message: "field cannot be empty",success:false });
   }
 
   let isexist = await UserModel.findOne({ email });
@@ -15,6 +15,7 @@ async function userRegister(req, res) {
   if (isexist) {
     return res.json({
       message: "user exist with this email",
+      success:false
     });
   }
 
@@ -32,7 +33,7 @@ async function userRegister(req, res) {
 
   res.cookie("token", token);
 
-  res.json({ token, message: "user created successfully" });
+  res.json({ token, message: "user created successfully" ,success:true});
 }
 
 // login
@@ -40,14 +41,14 @@ async function userLogin(req, res) {
   let { email, password } = req.body;
 
   if (!email || !password) {
-    return res.json({ message: "field cannot be empty" });
+    return res.json({ message: "field cannot be empty" ,success:false });
   }
 
   let isexist = await UserModel.findOne({ email }).select("+password");
 
   if (!isexist) {
     return res.json({
-      message: "user does not exist",
+      message: "user does not exist",success:false 
     });
   }
 
@@ -55,7 +56,7 @@ async function userLogin(req, res) {
 
   if (!result) {
     return res.json({
-      message: "password incorrect",
+      message: "password incorrect",success:false 
     });
   }
 
@@ -68,7 +69,7 @@ async function userLogin(req, res) {
 
   res.json({
     message: "login successful",
-    token,
+    success:true 
   });
 }
 
