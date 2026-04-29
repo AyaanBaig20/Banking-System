@@ -33,7 +33,7 @@ async function userRegister(req, res) {
 
   res.cookie("token", token);
 
-  res.json({ token, message: "user created successfully" ,success:true});
+  res.json({ newuser, message: "user created successfully" ,success:true});
 }
 
 // login
@@ -69,7 +69,8 @@ async function userLogin(req, res) {
 
   res.json({
     message: "login successful",
-    success:true 
+    success:true ,
+    user:isexist
   });
 }
 

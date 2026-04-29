@@ -2,14 +2,13 @@ import './App.css'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 
 import Signup from './features/auth/pages/Signup'
-import Home from './features/general/pages/Home'
-import Error from './features/general/pages/Error'
+import Home from './features/general/Home'
+import Error from './features/general/Error'
 import Register from './features/auth/pages/Register'
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+        <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/signup' element={<Signup/>}/>
@@ -17,7 +16,6 @@ function App() {
           <Route path='/*' element={<Error/>}/>
         </Routes>
       </BrowserRouter>
-    </>
   )
 }
 

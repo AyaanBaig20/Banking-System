@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { handlefaliure, handlesuccess } from "../utils";
+import {useAuth} from "../hook/useAuth"
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   let navigate = useNavigate();
+    const loading = useSelector((state)=>state.auth.loading)
+  let {handleLogin} = useAuth()
 
   let [data, setData] = useState({
     email: "",
@@ -27,21 +31,16 @@ const Register = () => {
     }
 
     try {
-      let res = await axios.post(
-        "http://localhost:3000/api/auth/login", 
-        data,
-        { withCredentials: true }
-      );
-
-      if (res.data.success) {
-        handlesuccess(res.data.message);
+      let res = await handleLogin({email:data.email,password:data.password})
+      if (res.success) {
+        handlesuccess(res.message);
 
         setTimeout(() => {
           navigate("/");
         }, 2000);
 
       } else {
-        handlefaliure(res.data.message);
+        handlefaliure(res.message);
       }
 
     } catch (error) {
